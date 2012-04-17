@@ -17,8 +17,6 @@
 
 #define BUNDLE_IDENTIFIER @"edu.utah.cachefs"
 
-#define SOURCE_PATH @"/Users/dented42/tmp/cacheSrc"
-
 // Category on NSError to  simplify creating an NSError based on posix errno.
 @interface NSError (POSIX)
 + (NSError *)errorWithPOSIXCode:(int)code;
@@ -234,7 +232,7 @@
 #pragma mark helpers
 
 -(NSString*)sourcePath:(NSString*)path {
-  return [SOURCE_PATH stringByAppendingPathComponent:path];
+  return [sourceDir stringByAppendingPathComponent:path];
 }
 
 -(NSString*)cachedPath:(NSString *)path {
