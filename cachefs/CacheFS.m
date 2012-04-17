@@ -32,6 +32,7 @@
 @interface CacheFS () {
   
   NSString *cacheDir;
+  NSString *sourceDir;
   
   dispatch_once_t init_queues_once;
   dispatch_queue_t cachingQueue;
@@ -70,7 +71,7 @@
 
 @implementation CacheFS
 
-- (id)init {
+-(id)initWithPath:(NSString*)path {
   self = [super init];
   if (self) {
     // create our queues
@@ -84,17 +85,19 @@
                                 dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
       NSLog(@"Queues Created");
     });
+    releasedFiles = [[NSMutableDictionary alloc] init];
+    
+    // set the cache directory
+    NSString *topCache = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
+    cacheDir = [[topCache stringByAppendingPathComponent:BUNDLE_IDENTIFIER] stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
+    [[NSFileManager defaultManager] createDirectoryAtPath:cacheDir
+                              withIntermediateDirectories:YES
+                                               attributes:nil
+                                                    error:nil];
+    NSLog(@"Cache directory is %@", cacheDir);
+    sourceDir = path;
+    NSLog(@"Source path is %@", sourceDir);
   }
-  releasedFiles = [[NSMutableDictionary alloc] init];
-  
-  // set the cache directory
-  NSString *topCache = [NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES) objectAtIndex:0];
-  cacheDir = [[topCache stringByAppendingPathComponent:BUNDLE_IDENTIFIER] stringByAppendingPathComponent:[[NSProcessInfo processInfo] globallyUniqueString]];
-  [[NSFileManager defaultManager] createDirectoryAtPath:cacheDir
-                            withIntermediateDirectories:YES
-                                             attributes:nil
-                                                  error:nil];
-  NSLog(@"Cache directory is %@", cacheDir);
   return self;
 }
 

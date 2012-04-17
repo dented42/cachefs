@@ -10,6 +10,8 @@
 
 @interface CacheFS : NSObject
 
+-(id)initWithPath:(NSString*)path;
+
 // you MUST NOT perform filesystem operations on this object after this method has been called
 -(void)cleanUp;
 

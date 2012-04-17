@@ -17,6 +17,7 @@ int main(int argc, char* argv[], char* envp[], char** exec_path) {
     NSUserDefaults *args = [NSUserDefaults standardUserDefaults];
     NSString* mountPath = [args stringForKey:@"mountPath"];
     NSString* iconPath = [args stringForKey:@"volicon"];
+    NSString* sourcePath = [args stringForKey:@"sourcePath"];
     if (!mountPath || [mountPath isEqualToString:@""]) {
       printf("\nUsage: %s -mountPath <path> [-volicon <path>]\n", argv[0]);
       printf("  -mountPath: Mount point to use.\n");
@@ -37,7 +38,7 @@ int main(int argc, char* argv[], char* envp[], char** exec_path) {
     }
     
     CacheFS* fs = 
-    [[CacheFS alloc] init];
+    [[CacheFS alloc] initWithPath:sourcePath];
     GMUserFileSystem* userFS = [[GMUserFileSystem alloc] initWithDelegate:fs 
                                                              isThreadSafe:NO];
     
