@@ -10,6 +10,9 @@
 		1FBFB8D7153A3158000AAC2B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBFB8D6153A3158000AAC2B /* Foundation.framework */; };
 		1FBFB8DA153A3158000AAC2B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB8D9153A3158000AAC2B /* main.m */; };
 		1FBFB8DE153A3158000AAC2B /* cachefs.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FBFB8DD153A3158000AAC2B /* cachefs.1 */; };
+		1FBFB8E6153A323E000AAC2B /* CacheFS.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB8E5153A323E000AAC2B /* CacheFS.m */; };
+		1FBFB8E8153A3ED8000AAC2B /* OSXFUSE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBFB8E7153A3ED8000AAC2B /* OSXFUSE.framework */; };
+		1FBFB8EE153AA168000AAC2B /* dispatch_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB8ED153AA168000AAC2B /* dispatch_utils.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -29,8 +32,13 @@
 		1FBFB8D2153A3158000AAC2B /* cachefs */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = cachefs; sourceTree = BUILT_PRODUCTS_DIR; };
 		1FBFB8D6153A3158000AAC2B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		1FBFB8D9153A3158000AAC2B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1FBFB8DC153A3158000AAC2B /* cachefs-Prefix.pch */ = {isa = PBXFileReference; path = "cachefs-Prefix.pch"; sourceTree = "<group>"; };
+		1FBFB8DC153A3158000AAC2B /* cachefs-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "cachefs-Prefix.pch"; sourceTree = "<group>"; };
 		1FBFB8DD153A3158000AAC2B /* cachefs.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = cachefs.1; sourceTree = "<group>"; };
+		1FBFB8E4153A323E000AAC2B /* CacheFS.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CacheFS.h; sourceTree = "<group>"; };
+		1FBFB8E5153A323E000AAC2B /* CacheFS.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CacheFS.m; sourceTree = "<group>"; };
+		1FBFB8E7153A3ED8000AAC2B /* OSXFUSE.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OSXFUSE.framework; path = /Library/Frameworks/OSXFUSE.framework; sourceTree = "<absolute>"; };
+		1FBFB8ED153AA168000AAC2B /* dispatch_utils.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = dispatch_utils.c; sourceTree = "<group>"; };
+		1FBFB8EF153AA173000AAC2B /* dispatch_utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dispatch_utils.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -38,6 +46,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1FBFB8E8153A3ED8000AAC2B /* OSXFUSE.framework in Frameworks */,
 				1FBFB8D7153A3158000AAC2B /* Foundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -66,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				1FBFB8D6153A3158000AAC2B /* Foundation.framework */,
+				1FBFB8E7153A3ED8000AAC2B /* OSXFUSE.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -76,6 +86,10 @@
 				1FBFB8D9153A3158000AAC2B /* main.m */,
 				1FBFB8DD153A3158000AAC2B /* cachefs.1 */,
 				1FBFB8DB153A3158000AAC2B /* Supporting Files */,
+				1FBFB8E4153A323E000AAC2B /* CacheFS.h */,
+				1FBFB8E5153A323E000AAC2B /* CacheFS.m */,
+				1FBFB8ED153AA168000AAC2B /* dispatch_utils.c */,
+				1FBFB8EF153AA173000AAC2B /* dispatch_utils.h */,
 			);
 			path = cachefs;
 			sourceTree = "<group>";
@@ -140,6 +154,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1FBFB8DA153A3158000AAC2B /* main.m in Sources */,
+				1FBFB8E6153A323E000AAC2B /* CacheFS.m in Sources */,
+				1FBFB8EE153AA168000AAC2B /* dispatch_utils.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,6 +212,7 @@
 		1FBFB8E2153A3158000AAC2B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "cachefs/cachefs-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -205,6 +222,7 @@
 		1FBFB8E3153A3158000AAC2B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_64_BIT)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "cachefs/cachefs-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
