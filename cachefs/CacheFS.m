@@ -148,6 +148,10 @@
       dispatch_async(cachingQueue, ^{
         // actually cache the data
         [[NSFileManager defaultManager] removeItemAtPath:[self cachedPath:path] error:nil];
+        [[NSFileManager defaultManager] createDirectoryAtPath:[[self cachedPath:path] stringByDeletingLastPathComponent]
+                                  withIntermediateDirectories:YES
+                                                   attributes:nil
+                                                        error:nil];
         NSError *err = nil;
         if ([[NSFileManager defaultManager] copyItemAtPath:[self sourcePath:path]
                                                     toPath:[self cachedPath:path]
