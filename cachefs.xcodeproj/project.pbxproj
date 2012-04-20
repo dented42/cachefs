@@ -12,7 +12,6 @@
 		1FBFB8DE153A3158000AAC2B /* cachefs.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 1FBFB8DD153A3158000AAC2B /* cachefs.1 */; };
 		1FBFB8E6153A323E000AAC2B /* CacheFS.m in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB8E5153A323E000AAC2B /* CacheFS.m */; };
 		1FBFB8E8153A3ED8000AAC2B /* OSXFUSE.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1FBFB8E7153A3ED8000AAC2B /* OSXFUSE.framework */; };
-		1FBFB8EE153AA168000AAC2B /* dispatch_utils.c in Sources */ = {isa = PBXBuildFile; fileRef = 1FBFB8ED153AA168000AAC2B /* dispatch_utils.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -155,7 +154,6 @@
 			files = (
 				1FBFB8DA153A3158000AAC2B /* main.m in Sources */,
 				1FBFB8E6153A323E000AAC2B /* CacheFS.m in Sources */,
-				1FBFB8EE153AA168000AAC2B /* dispatch_utils.c in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -183,9 +181,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
 				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = macosx;
+				SDKROOT = macosx10.6;
 			};
 			name = Debug;
 		};
@@ -204,8 +202,8 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 10.7;
-				SDKROOT = macosx;
+				MACOSX_DEPLOYMENT_TARGET = 10.6;
+				SDKROOT = macosx10.6;
 			};
 			name = Release;
 		};
@@ -216,6 +214,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "cachefs/cachefs-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
 			};
 			name = Debug;
 		};
@@ -226,6 +225,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "cachefs/cachefs-Prefix.pch";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx10.7;
 			};
 			name = Release;
 		};
@@ -248,6 +248,7 @@
 				1FBFB8E3153A3158000AAC2B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

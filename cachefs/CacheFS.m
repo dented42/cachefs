@@ -9,7 +9,6 @@
 #import <sys/xattr.h>
 #import <sys/stat.h>
 #import <OSXFUSE/OSXFUSE.h>
-#import "dispatch_utils.h"
 
 #import "CacheFS.h"
 
@@ -74,11 +73,11 @@
   if (self) {
     // create our queues
     dispatch_once(&init_queues_once, ^{
-      cachingQueue = dispatch_queue_create("com.cachefs.cachingQueue", DISPATCH_QUEUE_CONCURRENT);
+      cachingQueue = dispatch_queue_create("com.cachefs.cachingQueue", NULL);
       dispatch_set_target_queue(cachingQueue,
                                 dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
       
-      userDataQueue = dispatch_queue_create("com.cachefs.UserDataQueue", DISPATCH_QUEUE_SERIAL);
+      userDataQueue = dispatch_queue_create("com.cachefs.UserDataQueue", NULL);
       dispatch_set_target_queue(userDataQueue,
                                 dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0));
       NSLog(@"Queues Created");
@@ -103,13 +102,11 @@
 -(void)cleanUp {
   dispatch_queue_t tmpQ; // we need a temp variable
   NSLog(@"Starting Cleanup");
-  // make the cleanup group
-  dispatch_group_t cleanupGroup = dispatch_group_create();
   
   // cleanup caching queue
   tmpQ = cachingQueue;
   cachingQueue = nil;
-  dispatch_group_barrier_async(cleanupGroup, tmpQ, ^{
+  dispatch_sync(tmpQ, ^{
     [[NSFileManager defaultManager] removeItemAtPath:cacheDir error:nil];
   });
   dispatch_release(tmpQ);
@@ -117,11 +114,9 @@
   // cleanup user data queue
   tmpQ = userDataQueue;
   userDataQueue = nil;
-  dispatch_group_barrier_async(cleanupGroup, tmpQ, ^{});
+  dispatch_sync(tmpQ, ^{});
   dispatch_release(tmpQ);
   
-  // wait for the cleanup to complete
-  dispatch_group_wait(cleanupGroup, DISPATCH_TIME_FOREVER);
   NSLog(@"Cleanup Complete");
 }
 
@@ -423,7 +418,7 @@
                                                       toPath:[self sourcePath:destination]
                                                        error:error];
   if (succ) {
-    dispatch_barrier_async(cachingQueue, ^{
+    dispatch_async(cachingQueue, ^{
       // make sure source is clear
       [[NSFileManager defaultManager] removeItemAtPath:[self cachedPath:destination]
                                                  error:nil];
@@ -451,7 +446,7 @@
 - (BOOL)removeItemAtPath:(NSString *)path error:(NSError **)error {
   if ([[NSFileManager defaultManager] removeItemAtPath:[self sourcePath:path]
                                                  error:error]) {
-    dispatch_barrier_async(cachingQueue, ^{
+    dispatch_async(cachingQueue, ^{
       [[NSFileManager defaultManager] removeItemAtPath:[self sourcePath:path]
                                                  error:nil];
     });

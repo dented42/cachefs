@@ -48,6 +48,7 @@ int main(int argc, char* argv[], char* envp[], char** exec_path) {
       [options addObject:volArg];
     }
     [options addObject:@"volname=cachefs"];
+    [options addObject:@"allow_other"];
     // [options addObject:@"rdonly"];  <-- Uncomment to mount read-only.
     
     [userFS mountAtPath:mountPath 
