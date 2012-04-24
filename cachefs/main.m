@@ -47,7 +47,8 @@ int main(int argc, char* argv[], char* envp[], char** exec_path) {
       NSString* volArg = [NSString stringWithFormat:@"volicon=%@", iconPath];
       [options addObject:volArg];
     }
-    [options addObject:@"volname=cachefs"];
+    [options addObject:[NSString stringWithFormat:@"volname=%@", [mountPath lastPathComponent]]];
+    [options addObject:@"allow_other"];
     // [options addObject:@"rdonly"];  <-- Uncomment to mount read-only.
     
     [userFS mountAtPath:mountPath 

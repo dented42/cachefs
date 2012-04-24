@@ -94,6 +94,9 @@
                                                     error:nil];
     NSLog(@"Cache directory is %@", cacheDir);
     sourceDir = path;
+    // make sure the source path is absolute
+    if (![sourceDir isAbsolutePath])
+      sourceDir = [[[NSFileManager defaultManager] currentDirectoryPath] stringByAppendingPathComponent:sourceDir];
     NSLog(@"Source path is %@", sourceDir);
   }
   return self;
@@ -471,19 +474,19 @@
 
 #pragma mark Symbolic Links (Optional)
 
-// TODO: Maybe Write Implementation
-//- (BOOL)createSymbolicLinkAtPath:(NSString *)path 
-//             withDestinationPath:(NSString *)otherPath
-//                           error:(NSError **)error {
-//  return NO;
-//}
+- (BOOL)createSymbolicLinkAtPath:(NSString *)path 
+             withDestinationPath:(NSString *)otherPath
+                           error:(NSError **)error {
+  return [[NSFileManager defaultManager] createSymbolicLinkAtPath:[sourceDir stringByAppendingPathComponent:path]
+                                              withDestinationPath:otherPath
+                                                            error:error];
+}
 
-// TODO: Maybe Write Implementation
-//- (NSString *)destinationOfSymbolicLinkAtPath:(NSString *)path
-//                                        error:(NSError **)error {
-//  *error = [NSError errorWithPOSIXCode:ENOENT];
-//  return nil;
-//}
+- (NSString *)destinationOfSymbolicLinkAtPath:(NSString *)path
+                                        error:(NSError **)error {
+  return [[NSFileManager defaultManager] destinationOfSymbolicLinkAtPath:[sourceDir stringByAppendingPathComponent:path]
+                                                                   error:error];
+}
 
 #pragma mark Extended Attributes (Optional)
 
