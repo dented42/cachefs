@@ -73,6 +73,7 @@
 		1FBFB8D5153A3158000AAC2B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1FBFB8DB153A3158000AAC2B /* Supporting Files */,
 				1FBFB8D6153A3158000AAC2B /* Foundation.framework */,
 				1FBFB8E7153A3ED8000AAC2B /* OSXFUSE.framework */,
 			);
@@ -84,7 +85,6 @@
 			children = (
 				1FBFB8D9153A3158000AAC2B /* main.m */,
 				1FBFB8DD153A3158000AAC2B /* cachefs.1 */,
-				1FBFB8DB153A3158000AAC2B /* Supporting Files */,
 				1FBFB8E4153A323E000AAC2B /* CacheFS.h */,
 				1FBFB8E5153A323E000AAC2B /* CacheFS.m */,
 				1FBFB8ED153AA168000AAC2B /* dispatch_utils.c */,
@@ -99,6 +99,7 @@
 				1FBFB8DC153A3158000AAC2B /* cachefs-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			path = cachefs;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
